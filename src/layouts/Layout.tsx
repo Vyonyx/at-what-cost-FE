@@ -1,3 +1,5 @@
+import Nav from "../components/Nav"
+
 type Props = {
   children: JSX.Element
 }
@@ -5,7 +7,7 @@ type Props = {
 function Layout({children}: Props) {
   return (
     <main>
-      <nav>Nav</nav>
+      <Nav />
       {children}
     </main>
   )
