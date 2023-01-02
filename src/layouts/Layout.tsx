@@ -1,3 +1,4 @@
+import Footer from "../components/Footer"
 import Nav from "../components/Nav"
 
 type Props = {
@@ -9,6 +10,7 @@ function Layout({children}: Props) {
     <main>
       <Nav />
       {children}
+      <Footer />
     </main>
   )
 }
