@@ -4,24 +4,21 @@ import { Box } from "@mui/system";
 
 function Nav() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton size="large" color='inherit' aria-label="menu" sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component='div' sx={{ flexGrow: 1 }}>At What Cost</Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <AppBar position="static">
+      <Toolbar sx={toolbarStyle}>
+        <IconButton size="large" color='inherit' aria-label="menu" sx={{ mr: 2 }}>
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" component='div' sx={{ flexGrow: 1 }}>At What Cost</Typography>
+        <Button variant="contained" color="inherit" sx={{color:'#232121'}}>Login</Button>
+      </Toolbar>
+    </AppBar>
   )
 }
 
 export default Nav
 
-const containerStyle = {
-  width: '100vw',
-  height: 60,
-  background: '#666'
+const toolbarStyle = {
+  background: '#232121',
+  color: '#F2F2F2',
 }

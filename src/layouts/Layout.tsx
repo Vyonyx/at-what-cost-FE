@@ -1,3 +1,4 @@
+import { Box, Container } from "@mui/material"
 import Footer from "../components/Footer"
 import Nav from "../components/Nav"
 
@@ -7,11 +8,21 @@ type Props = {
 
 function Layout({children}: Props) {
   return (
-    <main>
+    <Box sx={fullPageStyle}>
       <Nav />
-      {children}
+      <Container sx={{flexGrow:1}}>
+        {children}
+      </Container>
       <Footer />
-    </main>
+    </Box>
   )
 }
 export default Layout
+
+const fullPageStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100vh',
+  background: '#232121',
+  color: '#F2F2F2',
+}
