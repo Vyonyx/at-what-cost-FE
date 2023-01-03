@@ -3,7 +3,7 @@ import { Container } from "@mui/system"
 
 function Dashboard() {
   return (
-    <Grid container columnSpacing={10} sx={{height:'100%', paddingBottom:6}}>
+    <Grid container columnSpacing={10} sx={{height:'100%', paddingBottom:6, background:'primary.main'}}>
       <Grid item xs={12} md={6} sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
         <Typography variant="h6" mt={6} mb={2}>
           Transactions

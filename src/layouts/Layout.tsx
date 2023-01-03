@@ -23,6 +23,5 @@ const fullPageStyle = {
   display: 'flex',
   flexDirection: 'column',
   height: '100vh',
-  background: '#232121',
   color: '#F2F2F2',
 }

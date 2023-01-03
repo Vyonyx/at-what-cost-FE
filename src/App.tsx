@@ -7,16 +7,14 @@ import Instructions from './pages/Instructions'
 function App() {
   return (
     <div className="App">
-      <CssBaseline>
-        <Layout>
-          <BrowserRouter>
-          <Routes>
-            <Route path='/' element={ <Dashboard /> } />
-            <Route path='/instructions' element={ <Instructions /> } />
-          </Routes>
-          </BrowserRouter>
-        </Layout>
-      </CssBaseline>
+      <Layout>
+        <BrowserRouter>
+        <Routes>
+          <Route path='/' element={ <Dashboard /> } />
+          <Route path='/instructions' element={ <Instructions /> } />
+        </Routes>
+        </BrowserRouter>
+      </Layout>
     </div>
   )
 }
