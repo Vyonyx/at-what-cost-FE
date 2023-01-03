@@ -9,7 +9,7 @@ type Props = {
 }
 function TransactionListItem({transaction, category}: Props) {
   return (
-    <ListItem sx={{color:'background.default', display:'flex', padding:'10px 0px'}} disablePadding>
+    <ListItem sx={{color:'background.default', display:'flex', padding:'10px'}} disablePadding>
       <ListItemText color="inherit" sx={{width:'100px'}}>
         {transaction}
       </ListItemText>

@@ -54,8 +54,10 @@ const subSectionStyle = {
 
 const sectionStyle = {
   height: '100%',
+  maxHeight: '600px',
+  overflowY: 'scroll',
   width: '100%',
   borderRadius: '1rem',
   padding: '2rem',
-  background: '#F2F2F2'
+  background: '#F2F2F2',
 }
