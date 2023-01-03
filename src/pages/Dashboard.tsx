@@ -1,4 +1,4 @@
-import { Box, Button, Grid, List, Typography } from "@mui/material"
+import { Box, Button, ButtonGroup, Grid, List, Typography } from "@mui/material"
 import { Container } from "@mui/system"
 import TransactionListItem from "../components/TransactionListItem"
 
@@ -18,17 +18,13 @@ function Dashboard() {
             <TransactionListItem transaction="Mc Donalds" category='Food & Drink' />
           </List>
         </Box>
-        <Box sx={{display:'flex', gap:'1rem'}}>
+        <ButtonGroup
+          size='large'
+          color='primary'
+          variant="outlined"
+          aria-aria-label="outlined button group"
+        >
           <Button
-            sx={{
-              padding: '0.5rem 3.25rem',
-              color:'background.default',
-              backgroundColor:'primary.main',
-              '&:hover': {
-                color: 'background.default',
-                backgroundColor: 'primary.main',
-              }
-            }}
             onClick={() => {
               const input = document.getElementById('csvUpload')
               if (input) input.click()
@@ -42,28 +38,13 @@ function Dashboard() {
             />
             Upload
           </Button>
-          <Button
-            disabled
-            sx={{
-              padding: '0.5rem 3.25rem',
-              color:'background.default',
-              backgroundColor:'primary.main',
-              '&:hover': {
-                color: 'background.default',
-                backgroundColor: 'primary.main',
-              },
-              '&:disabled': {
-                color: 'primary.main',
-                backgroundColor: 'background.default',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'primary.main'
-              }
-            }}
-          >
+          <Button>
+            Filters
+          </Button>
+          <Button>
             Clear
           </Button>
-        </Box>
+        </ButtonGroup>
       </Grid>
       <Grid item xs={12} md={6} sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
       <Typography variant="h6" mt={6} mb={2}>
