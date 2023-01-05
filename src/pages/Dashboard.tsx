@@ -1,11 +1,9 @@
-import { Box, Button, ButtonGroup, Grid, List, Typography } from "@mui/material"
+import { Box, Grid, List, Typography } from "@mui/material"
 import { Container } from "@mui/system"
-import { useDispatch } from "react-redux"
+import TransactionButtons from "../components/TransactionButtons"
 import TransactionListItem from "../components/TransactionListItem"
-import { toggle } from '../redux/filters'
 
 function Dashboard() {
-  const dispatch = useDispatch()
 
   return (
     <Grid container columnSpacing={6} sx={{height:'100%', paddingBottom:6, background:'primary.main'}}>
@@ -22,32 +20,7 @@ function Dashboard() {
             <TransactionListItem transaction="Mc Donalds" category='Food & Drink' />
           </List>
         </Box>
-        <ButtonGroup
-          size='large'
-          color='primary'
-          variant="outlined"
-        >
-          <Button
-            onClick={() => {
-              const input = document.getElementById('csvUpload')
-              if (input) input.click()
-            }}
-          >
-            <input
-              id='csvUpload'
-              type='file'
-              accept='.csv'
-              style={{display:'none'}}
-            />
-            Upload
-          </Button>
-          <Button onClick={() => dispatch(toggle())}>
-            Filters
-          </Button>
-          <Button>
-            Clear
-          </Button>
-        </ButtonGroup>
+        <TransactionButtons />
       </Grid>
       <Grid item xs={12} md={6} sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
       <Typography variant="h6" mt={6} mb={2}>
