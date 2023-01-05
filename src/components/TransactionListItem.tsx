@@ -15,33 +15,26 @@ function TransactionListItem({transaction, amount = '3.50'}: Props) {
       <ListItemText color="inherit" sx={{width:'100px'}}>
         {transaction}
       </ListItemText>
+
       <ListItemText color="inherit" sx={{flexGrow:2}}>
         {category}
       </ListItemText>
+
       <ListItemText color="inherit" sx={{flexGrow:1, textAlign:'right'}}>
         {amount}
       </ListItemText>
+      
       {(showFilters) && (
         <Box ml={4} sx={{display:'flex', gap:'1rem', width:'4rem', justifyContent:'end'}}>
           {category ? (
             <>
-              <IconButton edge='end' aria-label="delete" sx={buttonStyleCreator('#F69400')}>
-                <Typography variant='body2' sx={{color:'primary.main'}}>
-                  Edit
-                </Typography>
-              </IconButton>
-              <IconButton edge='end' aria-label="delete" sx={buttonStyleCreator('#FF1A1A')}>
-              <Typography variant='body2' sx={{color:'primary.main'}}>
-                  Del
-                </Typography>
-              </IconButton>
+              <FilterButton text='Edit' label='edit' color='#F69400' />
+              <FilterButton text='Del' label='delete' color='#FF1A1A' />
             </>
           ) : (
-            <IconButton edge='end' aria-label="delete" sx={buttonStyleCreator('#008061')}>
-              <Typography variant='body2' sx={{color:'primary.main'}}>
-                Add
-              </Typography>
-            </IconButton>
+            <>
+              <FilterButton text='Add' label='add' color='#008061' />
+            </>
           )}
         </Box>
       )}
@@ -61,4 +54,20 @@ const buttonStyleCreator = (color: string) => {
       backgroundColor:`background.default`
     }
   }
+}
+
+type FilterButtonProps = {
+  text: string;
+  color: string;
+  label: string;
+}
+
+const FilterButton = ({ text, color, label }:FilterButtonProps) => {
+  return (
+    <IconButton edge='end' aria-label={label} sx={buttonStyleCreator(color)}>
+      <Typography variant='body2' sx={{color:'primary.main'}}>
+        {text}
+      </Typography>
+    </IconButton>
+  )
 }
