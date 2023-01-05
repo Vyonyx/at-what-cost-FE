@@ -9,12 +9,10 @@ const initialState: InitialState = {
   isToggled: false,
   list: [
     {
-      id: 1,
       transaction: 'BP',
       category: 'Vehicle'
     },
     {
-      id: 2,
       transaction: 'Raglan Roast',
       category: 'Food & Drink'
     },
@@ -27,16 +25,16 @@ export const filtersSlice = createSlice({
   reducers: {
     add: (state, action: PayloadAction<Filter>) => {state.list.push(action.payload)},
     edit: (state, action: PayloadAction<Filter>) => {
-      const { id } = action.payload
+      const { transaction } = action.payload
       const list = state.list.map(filter => {
-        if (filter.id !== id) return filter
+        if (filter.transaction !== transaction) return filter
         return action.payload
       })
       return {...state, list}
     },
-    del: (state, action: PayloadAction<number>) => {
-      const id = action.payload
-      const list = state.list.filter(filter => filter.id !== id)
+    del: (state, action: PayloadAction<Filter>) => {
+      const { transaction } = action.payload
+      const list = state.list.filter(filter => filter.transaction !== transaction)
       return {...state, list}
     },
     toggle: (state) => {state.isToggled = !state.isToggled}
