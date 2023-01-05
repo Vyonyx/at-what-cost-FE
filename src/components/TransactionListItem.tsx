@@ -1,5 +1,5 @@
-import { IconButton, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
-import { Box, fontSize } from "@mui/system";
+import { IconButton, ListItem, ListItemText, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
@@ -21,18 +21,28 @@ function TransactionListItem({transaction, amount = '3.50'}: Props) {
       <ListItemText color="inherit" sx={{flexGrow:1, textAlign:'right'}}>
         {amount}
       </ListItemText>
-      {showFilters && (
-        <Box ml={4} sx={{display:'flex', gap:'1rem'}}>
-          <IconButton edge='end' aria-label="delete" sx={buttonStyleCreator('#F69400')}>
-            <Typography variant='body2' sx={{color:'primary.main'}}>
-              Edit
-            </Typography>
-          </IconButton>
-          <IconButton edge='end' aria-label="delete" sx={buttonStyleCreator('#FF1A1A')}>
-          <Typography variant='body2' sx={{color:'primary.main'}}>
-              Del
-            </Typography>
-          </IconButton>
+      {(showFilters) && (
+        <Box ml={4} sx={{display:'flex', gap:'1rem', width:'4rem', justifyContent:'end'}}>
+          {category ? (
+            <>
+              <IconButton edge='end' aria-label="delete" sx={buttonStyleCreator('#F69400')}>
+                <Typography variant='body2' sx={{color:'primary.main'}}>
+                  Edit
+                </Typography>
+              </IconButton>
+              <IconButton edge='end' aria-label="delete" sx={buttonStyleCreator('#FF1A1A')}>
+              <Typography variant='body2' sx={{color:'primary.main'}}>
+                  Del
+                </Typography>
+              </IconButton>
+            </>
+          ) : (
+            <IconButton edge='end' aria-label="delete" sx={buttonStyleCreator('#008061')}>
+              <Typography variant='body2' sx={{color:'primary.main'}}>
+                Add
+              </Typography>
+            </IconButton>
+          )}
         </Box>
       )}
     </ListItem>
