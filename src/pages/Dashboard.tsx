@@ -22,7 +22,6 @@ function Dashboard() {
           size='large'
           color='primary'
           variant="outlined"
-          aria-aria-label="outlined button group"
         >
           <Button
             onClick={() => {
