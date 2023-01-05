@@ -34,7 +34,7 @@ export const filtersSlice = createSlice({
       })
       return {...state, list}
     },
-    delete: (state, action: PayloadAction<number>) => {
+    del: (state, action: PayloadAction<number>) => {
       const id = action.payload
       const list = state.list.filter(filter => filter.id !== id)
       return {...state, list}
@@ -42,5 +42,7 @@ export const filtersSlice = createSlice({
     toggle: (state) => {state.isToggled = !state.isToggled}
   }
 })
+
+export const { add, edit, del, toggle } = filtersSlice.actions
 
 export default filtersSlice.reducer

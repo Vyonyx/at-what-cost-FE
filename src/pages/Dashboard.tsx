@@ -1,8 +1,12 @@
 import { Box, Button, ButtonGroup, Grid, List, Typography } from "@mui/material"
 import { Container } from "@mui/system"
+import { useDispatch } from "react-redux"
 import TransactionListItem from "../components/TransactionListItem"
+import { toggle } from '../redux/filters'
 
 function Dashboard() {
+  const dispatch = useDispatch()
+
   return (
     <Grid container columnSpacing={6} sx={{height:'100%', paddingBottom:6, background:'primary.main'}}>
       <Grid item xs={12} md={6} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'1rem'}}>
@@ -37,7 +41,7 @@ function Dashboard() {
             />
             Upload
           </Button>
-          <Button>
+          <Button onClick={() => dispatch(toggle())}>
             Filters
           </Button>
           <Button>
