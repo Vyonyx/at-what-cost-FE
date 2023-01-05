@@ -1,7 +1,7 @@
 import { Button, ButtonGroup } from "@mui/material"
 import { useDispatch } from "react-redux"
 import { toggle } from '../redux/filters'
-import { upload } from "../redux/transactions"
+import { upload, clear } from "../redux/transactions"
 
 function TransactionButtons() {
   const dispatch = useDispatch()
@@ -38,10 +38,10 @@ function TransactionButtons() {
             />
             Upload
           </Button>
-          <Button onClick={() => dispatch(toggle())}>
+          <Button onClick={() => dispatch(toggle())} >
             Filters
           </Button>
-          <Button>
+          <Button onClick={() => dispatch(clear())} >
             Clear
           </Button>
         </ButtonGroup>
