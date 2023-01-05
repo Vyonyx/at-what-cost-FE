@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import filtersReducer from './filters'
+import transactionsReducer from './transactions'
 
 export const store = configureStore({
   reducer: {
-    filters: filtersReducer
+    filters: filtersReducer,
+    transactions: transactionsReducer
   },
 })
 

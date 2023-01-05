@@ -1,6 +1,7 @@
 import { Button, ButtonGroup } from "@mui/material"
 import { useDispatch } from "react-redux"
 import { toggle } from '../redux/filters'
+import { upload } from "../redux/transactions"
 
 function TransactionButtons() {
   const dispatch = useDispatch()
@@ -29,7 +30,7 @@ function TransactionButtons() {
                 reader.onload = function (event) {
                   const str = String(event.target?.result)
                   const transactions = csvToArray(str)
-                  console.log(transactions)
+                  dispatch(upload(transactions))
                 }
 
                 reader.readAsText(target.files[0])
