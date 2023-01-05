@@ -25,7 +25,6 @@ function TransactionList() {
           key={idx}
           transaction={item[transactionKey]}
           amount={item[amountKey]}
-          category=''
         />
       ))}
     </List>

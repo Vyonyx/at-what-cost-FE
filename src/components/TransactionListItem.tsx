@@ -5,10 +5,10 @@ import { RootState } from "../redux/store";
 
 type Props = {
   transaction: string;
-  category: string;
   amount?: string;
 }
-function TransactionListItem({transaction, category, amount = '3.50'}: Props) {
+function TransactionListItem({transaction, amount = '3.50'}: Props) {
+  const category = useSelector((state:RootState) => state.filters.list.find(filter => filter.transaction === transaction))?.category
   const showFilters = useSelector((state:RootState) => state.filters.isToggled)
   return (
     <ListItem sx={{color:'background.default', display:'flex', padding:'10px'}} disablePadding>
