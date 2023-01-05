@@ -1,13 +1,14 @@
 import { IconButton, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
 import { Box, fontSize } from "@mui/system";
-
-const isEditMode = true
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 type Props = {
   transaction: string;
   category: string;
 }
 function TransactionListItem({transaction, category}: Props) {
+  const showFilters = useSelector((state:RootState) => state.filters.isToggled)
   return (
     <ListItem sx={{color:'background.default', display:'flex', padding:'10px'}} disablePadding>
       <ListItemText color="inherit" sx={{width:'100px'}}>
@@ -19,7 +20,7 @@ function TransactionListItem({transaction, category}: Props) {
       <ListItemText color="inherit" sx={{flexGrow:1, textAlign:'right'}}>
         $3.50
       </ListItemText>
-      {isEditMode && (
+      {showFilters && (
         <Box ml={4} sx={{display:'flex', gap:'1rem'}}>
           <IconButton edge='end' aria-label="delete" sx={buttonStyleCreator('#F69400')}>
             <Typography variant='body2' sx={{color:'primary.main'}}>

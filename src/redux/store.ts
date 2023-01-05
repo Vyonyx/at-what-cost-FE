@@ -3,7 +3,7 @@ import filtersReducer from './filters'
 
 export const store = configureStore({
   reducer: {
-    filtersReducer
+    filters: filtersReducer
   },
 })
 
