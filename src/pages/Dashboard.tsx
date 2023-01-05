@@ -1,6 +1,7 @@
 import { Box, Grid, List, Typography } from "@mui/material"
 import { Container } from "@mui/system"
 import TransactionButtons from "../components/TransactionButtons"
+import TransactionList from "../components/TransactionsList"
 import TransactionListItem from "../components/TransactionListItem"
 
 function Dashboard() {
@@ -12,13 +13,7 @@ function Dashboard() {
           Transactions
         </Typography>
         <Box sx={sectionStyle}>
-          <List sx={{'li + li': {borderTop:'1px solid grey'}}}>
-            <TransactionListItem transaction="BP" category='Vehicle' />
-            <TransactionListItem transaction="Raglan Roast" category='Food & Drink' />
-            <TransactionListItem transaction="Countdown" category='Groceries' />
-            <TransactionListItem transaction="Two Degrees" category='Communication' />
-            <TransactionListItem transaction="Mc Donalds" category='Food & Drink' />
-          </List>
+          <TransactionList />
         </Box>
         <TransactionButtons />
       </Grid>

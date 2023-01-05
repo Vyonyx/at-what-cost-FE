@@ -6,8 +6,9 @@ import { RootState } from "../redux/store";
 type Props = {
   transaction: string;
   category: string;
+  amount?: string;
 }
-function TransactionListItem({transaction, category}: Props) {
+function TransactionListItem({transaction, category, amount = '3.50'}: Props) {
   const showFilters = useSelector((state:RootState) => state.filters.isToggled)
   return (
     <ListItem sx={{color:'background.default', display:'flex', padding:'10px'}} disablePadding>
@@ -18,7 +19,7 @@ function TransactionListItem({transaction, category}: Props) {
         {category}
       </ListItemText>
       <ListItemText color="inherit" sx={{flexGrow:1, textAlign:'right'}}>
-        $3.50
+        {amount}
       </ListItemText>
       {showFilters && (
         <Box ml={4} sx={{display:'flex', gap:'1rem'}}>
