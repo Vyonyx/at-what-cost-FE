@@ -1,16 +1,10 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography } from "@mui/material"
+import { Box, Grid, Typography } from "@mui/material"
 import { Container } from "@mui/system"
-import { useDispatch, useSelector } from "react-redux"
 import TransactionButtons from "../components/TransactionButtons"
 import TransactionList from "../components/TransactionsList"
-import { RootState } from "../redux/store"
-import { resetModal } from "../redux/modal"
+import FiltersModal from "../components/FiltersModal"
 
 function Dashboard() {
-  const dispatch = useDispatch()
-  const isModalOpen = useSelector((state:RootState) => state.modal.isOpen)
-  const isEditModal = useSelector((state:RootState) => state.modal.isEdit)
-  const isAddModal = useSelector((state:RootState) => state.modal.isAdd)
 
   return (
     <>
@@ -39,27 +33,7 @@ function Dashboard() {
         </Grid>
       </Grid>
 
-      <Dialog open={isModalOpen}>
-        {isAddModal && (<DialogTitle>Add Filter</DialogTitle>)}
-        {isEditModal && (<DialogTitle>Edit Filter</DialogTitle>)}
-        <DialogContent>
-          <DialogContentText>
-            You can choose from one of our pre-defined categories or create one of your own.
-          </DialogContentText>
-          <DialogActions>
-            {isAddModal && (
-              <Button onClick={() => { dispatch(resetModal()) }}>
-                Add Filter
-              </Button>
-            )}
-            {isEditModal && (
-              <Button onClick={() => { dispatch(resetModal()) }}>
-                Update Filter
-              </Button>
-            )}
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
+      <FiltersModal />
     </>
   )
 }
