@@ -16,6 +16,7 @@ function FiltersModal() {
   const isModalOpen = useSelector((state:RootState) => state.modal.isOpen)
   const isEditModal = useSelector((state:RootState) => state.modal.isEdit)
   const isAddModal = useSelector((state:RootState) => state.modal.isAdd)
+  const selectedTransaction = useSelector((state:RootState) => state.modal.transaction)
 
   const [category, setCategory] = useState(initialCategory)
 
@@ -32,6 +33,9 @@ function FiltersModal() {
   }
 
   function handleClose() {
+    // Add filter
+    
+    // Reset
     setCategory(initialCategory)
     dispatch(resetModal())
   }
@@ -40,8 +44,16 @@ function FiltersModal() {
     <>
       {(isAddModal || isEditModal) && (
         <Dialog open={isModalOpen} TransitionComponent={Grow} onClose={handleClose}>
-          {isAddModal && (<DialogTitle>Add Filter</DialogTitle>)}
-          {isEditModal && (<DialogTitle>Edit Filter</DialogTitle>)}
+          {isAddModal && (
+            <DialogTitle>
+              Add Filter: {selectedTransaction}
+            </DialogTitle>
+          )}
+          {isEditModal && (
+            <DialogTitle>
+              Edit Filter: {selectedTransaction}
+            </DialogTitle>
+          )}
 
           <DialogContent>
             <DialogContentText>
