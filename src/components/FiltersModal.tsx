@@ -1,9 +1,10 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grow, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grow, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material"
 import React, { ChangeEvent, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { resetModal } from "../redux/modal"
 import { RootState } from "../redux/store"
 import selectCategories from "../data/selectCategories"
+import CloseIcon from "@mui/icons-material/Close"
 
 const initialCategory = {
   selectCategory: '',
@@ -46,6 +47,17 @@ function FiltersModal() {
             <DialogContentText>
               You can choose from one of our pre-defined categories or create one of your own.
             </DialogContentText>
+
+            <IconButton
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                top: 10,
+                right: 10
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
 
             <FormControl fullWidth sx={{margin:'2rem 0'}}>
               <InputLabel id='selectCategory-label'>Categories:</InputLabel>
