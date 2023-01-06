@@ -3,6 +3,7 @@ import React, { ChangeEvent, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { resetModal } from "../redux/modal"
 import { RootState } from "../redux/store"
+import selectCategories from "../data/selectCategories"
 
 const initialCategory = {
   selectCategory: '',
@@ -55,9 +56,9 @@ function FiltersModal() {
                 value={category.selectCategory}
                 onChange={handleChange}
               >
-                <MenuItem value='Food & Drink'>Food & Drink</MenuItem>
-                <MenuItem value='Vehicle'>Vehicle</MenuItem>
-                <MenuItem value='Rent'>Rent</MenuItem>
+                {selectCategories.map(category => (
+                  <MenuItem value={category}>{category}</MenuItem>
+                ))}
               </Select>
             </FormControl>
 
