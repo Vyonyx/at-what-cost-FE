@@ -5,6 +5,7 @@ import { resetModal } from "../redux/modal"
 import { RootState } from "../redux/store"
 import selectCategories from "../data/selectCategories"
 import CloseIcon from "@mui/icons-material/Close"
+import { add, edit } from "../redux/filters"
 
 const initialCategory = {
   selectCategory: '',
@@ -33,7 +34,15 @@ function FiltersModal() {
   }
 
   function handleClose() {
+    const { selectCategory: selected, customCategory: custom } = category
+    const filter = {
+      transaction: selectedTransaction,
+      category: selected ? selected : custom
+    }
+    
     // Add filter
+    if (isAddModal) dispatch(add(filter))
+    if (isEditModal) dispatch(edit(filter))
     
     // Reset
     setCategory(initialCategory)
@@ -80,8 +89,8 @@ function FiltersModal() {
                 value={category.selectCategory}
                 onChange={handleChange}
               >
-                {selectCategories.map(category => (
-                  <MenuItem value={category}>{category}</MenuItem>
+                {selectCategories.map((category, idx) => (
+                  <MenuItem key={idx} value={category}>{category}</MenuItem>
                 ))}
               </Select>
             </FormControl>

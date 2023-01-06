@@ -7,16 +7,7 @@ type InitialState = {
 
 const initialState: InitialState = {
   isToggled: true,
-  list: [
-    {
-      transaction: 'BP',
-      category: 'Vehicle'
-    },
-    {
-      transaction: 'Raglan Roast',
-      category: 'Food & Drink'
-    },
-  ]
+  list: []
 }
 
 export const filtersSlice = createSlice({
