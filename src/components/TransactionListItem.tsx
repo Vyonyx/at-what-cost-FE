@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { del } from "../redux/filters";
-import { toggleIsAdd, toggleIsEdit, toggleIsOpen } from '../redux/modal'
+import { toggleIsAdd, toggleIsEdit } from '../redux/modal'
 
 type Props = {
   transaction: string;
@@ -12,7 +12,6 @@ type Props = {
 function TransactionListItem({transaction, amount = '3.50'}: Props) {
   const category = useSelector((state:RootState) => state.filters.list.find(filter => filter.transaction === transaction))?.category
   const showFilters = useSelector((state:RootState) => state.filters.isToggled)
-  const isModalOpen = useSelector((state:RootState) => state.modal)
 
   const dispatch = useDispatch()
   
@@ -39,15 +38,16 @@ function TransactionListItem({transaction, amount = '3.50'}: Props) {
                 label='edit' 
                 color='#F69400'
                 func={() => {
-                  dispatch(toggleIsOpen())
-                  dispatch(toggleIsEdit())
+                  dispatch(toggleIsEdit(transaction))
                 }}
               />
               <FilterButton
                 text='Del' 
                 label='delete' 
                 color='#FF1A1A'
-                func={() => dispatch(del({ transaction, category }))}
+                func={() => {
+                  dispatch(del({ transaction, category }))
+                }}
               />
             </>
           ) : (
@@ -57,8 +57,7 @@ function TransactionListItem({transaction, amount = '3.50'}: Props) {
                 label='add'
                 color='#008061'
                 func={() => {
-                  dispatch(toggleIsOpen())
-                  dispatch(toggleIsAdd())
+                  dispatch(toggleIsAdd(transaction))
                 }}
               />
             </>

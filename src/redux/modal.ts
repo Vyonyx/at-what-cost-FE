@@ -1,27 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type InitialState = {
   isOpen: boolean;
   isAdd: boolean;
   isEdit: boolean;
+  transaction: string;
 }
 
 const initialState: InitialState = {
   isOpen: false,
   isAdd: false,
-  isEdit: false
+  isEdit: false,
+  transaction: ''
 }
 
 const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    toggleIsOpen: (state) => {state.isOpen = !state.isOpen},
-    toggleIsAdd: (state) => {state.isAdd = !state.isAdd},
-    toggleIsEdit: (state) => {state.isEdit = !state.isEdit},
-    resetModal: (state) => initialState
+    toggleIsAdd: (state, action: PayloadAction<string>) => {
+      state.isOpen = true
+      state.isAdd = true
+      state.transaction = action.payload
+    },
+    toggleIsEdit: (state, action: PayloadAction<string>) => {
+      state.isOpen = true
+      state.isEdit = !state.isEdit
+      state.transaction = action.payload
+    },
+    resetModal: () => initialState
   }
 })
 
-export const { toggleIsOpen, toggleIsAdd, toggleIsEdit, resetModal } = modalSlice.actions
+export const { toggleIsAdd, toggleIsEdit, resetModal } = modalSlice.actions
 export default modalSlice.reducer
