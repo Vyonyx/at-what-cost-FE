@@ -6,7 +6,7 @@ type InitialState = {
 }
 
 const initialState: InitialState = {
-  isToggled: false,
+  isToggled: true,
   list: [
     {
       transaction: 'BP',
