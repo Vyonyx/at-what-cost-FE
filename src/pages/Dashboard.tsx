@@ -1,8 +1,7 @@
-import { Box, Grid, List, Typography } from "@mui/material"
+import { Box, Grid, Typography } from "@mui/material"
 import { Container } from "@mui/system"
 import TransactionButtons from "../components/TransactionButtons"
 import TransactionList from "../components/TransactionsList"
-import TransactionListItem from "../components/TransactionListItem"
 
 function Dashboard() {
 
