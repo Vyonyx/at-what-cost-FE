@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import filtersReducer from './filters'
 import transactionsReducer from './transactions'
+import modalReducer from './modal'
 
 export const store = configureStore({
   reducer: {
     filters: filtersReducer,
-    transactions: transactionsReducer
+    transactions: transactionsReducer,
+    modal: modalReducer
   },
 })
 
