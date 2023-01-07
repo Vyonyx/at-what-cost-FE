@@ -6,6 +6,11 @@ describe('transactions to pie data conversion', () => {
   const transactionKey = 'Code'
   const amountKey = 'Amount'
 
+  const filters: Filter[] = [
+    {transaction: 'BP', category: 'Vehicle'},
+    {transaction: 'Countdown', category: 'Food & Drink'},
+  ]
+
   it('reduces transactions to totals for each unique transaction name', () => {
     const transactions = [
       {Code: 'BP', Amount: '-70'},
@@ -16,12 +21,13 @@ describe('transactions to pie data conversion', () => {
     const actual = transactionsToPieData(
       transactionKey,
       amountKey,
-      transactions
+      transactions,
+      filters
     )
 
     const expected = [
-      {id: 'BP', label: 'BP', value: -120},
-      {id: 'Countdown', label: 'Countdown', value: -100},
+      {id: 'Vehicle', label: 'Vehicle', value: -120},
+      {id: 'Food & Drink', label: 'Food & Drink', value: -100},
     ]
     
     expect(actual).toEqual(expected)
@@ -37,7 +43,8 @@ describe('transactions to pie data conversion', () => {
     const actual = transactionsToPieData(
       transactionKey,
       amountKey,
-      transactions
+      transactions,
+      filters
     )
 
     const expected = 'Could not find transaction name'
@@ -55,8 +62,10 @@ describe('transactions to pie data conversion', () => {
     const actual = transactionsToPieData(
       transactionKey,
       amountKey,
-      transactions
+      transactions,
+      filters
     )
+    
     const expected = 'Could not find amount'
     
     expect(actual).toEqual(expected)
@@ -72,7 +81,8 @@ describe('transactions to pie data conversion', () => {
     const actual = transactionsToPieData(
       transactionKey,
       amountKey,
-      transactions
+      transactions,
+      filters
     )
 
     const expected = 'Encountered invalid number'
