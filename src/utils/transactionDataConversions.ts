@@ -1,13 +1,8 @@
-// These will need to be dynamically passed in
-const transactionKey = 'Code'
-const amountKey = 'Amount'
-
 type Transaction = {
-  [transactionKey]: string;
-  [amountKey]: string;
+  [key: string]: string;
 }
 
-export function transactionsToPieData(transactions: Transaction[]) {
+export function transactionsToPieData(transactionKey: string, amountKey: string, transactions: Transaction[]) {
   try {
     return transactions.reduce((obj: any, item, idx) => {
       const transaction = item[transactionKey]

@@ -2,6 +2,9 @@ import { it, expect, test, describe } from 'vitest'
 import { transactionsToPieData } from '../utils/transactionDataConversions'
 
 describe('transactions to pie data conversion', () => {
+  // These keys will be dynamically passed from frontend to fn
+  const transactionKey = 'Code'
+  const amountKey = 'Amount'
 
   it('reduces transactions to totals for each unique transaction name', () => {
     const transactions = [
@@ -10,7 +13,12 @@ describe('transactions to pie data conversion', () => {
       {Code: 'BP', Amount: '-50'},
     ]
   
-    const actual = transactionsToPieData(transactions)
+    const actual = transactionsToPieData(
+      transactionKey,
+      amountKey,
+      transactions
+    )
+
     const expected = {
       'BP': -120,
       'Countdown': -100
@@ -26,7 +34,12 @@ describe('transactions to pie data conversion', () => {
       {Name: 'BP', Amount: '-50'},
     ]
   
-    const actual = transactionsToPieData(transactions)
+    const actual = transactionsToPieData(
+      transactionKey,
+      amountKey,
+      transactions
+    )
+
     const expected = 'Could not find transaction name'
     
     expect(actual).toEqual(expected)
@@ -39,7 +52,11 @@ describe('transactions to pie data conversion', () => {
       {Code: 'BP', Value: '-50'},
     ]
   
-    const actual = transactionsToPieData(transactions)
+    const actual = transactionsToPieData(
+      transactionKey,
+      amountKey,
+      transactions
+    )
     const expected = 'Could not find amount'
     
     expect(actual).toEqual(expected)
@@ -52,7 +69,12 @@ describe('transactions to pie data conversion', () => {
       {Code: 'BP', Amount: '-50'},
     ]
   
-    const actual = transactionsToPieData(transactions)
+    const actual = transactionsToPieData(
+      transactionKey,
+      amountKey,
+      transactions
+    )
+
     const expected = 'Encountered invalid number'
     
     expect(actual).toEqual(expected)
