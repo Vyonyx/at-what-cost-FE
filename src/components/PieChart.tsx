@@ -19,7 +19,7 @@ function PieChart() {
           <Box sx={{width:'100%', height:'400px'}}>
             <ResponsivePie
             data={data}
-            margin={{ top: 0, right: 120, bottom: 40, left: 20 }}
+            margin={{ top: 0, right: 120, bottom: 0, left: 20 }}
             innerRadius={0.5}
             padAngle={0.7}
             cornerRadius={3}

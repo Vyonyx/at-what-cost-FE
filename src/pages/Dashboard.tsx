@@ -24,7 +24,7 @@ function Dashboard() {
             Cost Breakdown
           </Typography>
           <Container component='div' sx={graphContainerStyle}>
-            <Box sx={subSectionStyle}>
+            <Box sx={{...subSectionStyle, height:0}}>
               <PieChart />
             </Box>
             <Box sx={subSectionStyle}>
