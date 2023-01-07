@@ -19,10 +19,10 @@ describe('transactions to pie data conversion', () => {
       transactions
     )
 
-    const expected = {
-      'BP': -120,
-      'Countdown': -100
-    }
+    const expected = [
+      {id: 'BP', label: 'BP', value: -120},
+      {id: 'Countdown', label: 'Countdown', value: -100},
+    ]
     
     expect(actual).toEqual(expected)
   })

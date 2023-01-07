@@ -2,9 +2,15 @@ type Transaction = {
   [key: string]: string;
 }
 
+type PieData = {
+  id: string;
+  label: string;
+  value: number;
+}
+
 export function transactionsToPieData(transactionKey: string, amountKey: string, transactions: Transaction[]) {
   try {
-    return transactions.reduce((obj: any, item, idx) => {
+    return transactions.reduce((arr: PieData[], item, idx) => {
       const transaction = item[transactionKey]
       const amount = Number(item[amountKey])
 
@@ -12,11 +18,17 @@ export function transactionsToPieData(transactionKey: string, amountKey: string,
       if (item[amountKey] === undefined) throw new Error('Could not find amount')
       if (Number.isNaN(amount)) throw new Error('Encountered invalid number')
 
-      return {
-        ...obj,
-        [transaction]: obj[transaction] ? obj[transaction] + amount : amount
+      const existingData = arr.findIndex(item => item.id === transaction)
+      if (existingData !== -1) {
+        arr[existingData].value += amount
+        return arr
       }
-    }, {})
+
+      return [
+        ...arr,
+        {id: transaction, label: transaction, value: amount}
+      ]
+    }, [])
 
   } catch (error) {
     let message = 'Unknown error'
