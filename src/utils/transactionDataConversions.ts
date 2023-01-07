@@ -17,7 +17,7 @@ export function transactionsToPieData(
   try {
     return transactions.reduce((arr: PieData[], item) => {
       const transaction = item[transactionKey]
-      const amount = Number(item[amountKey])
+      const amount = Math.abs(Number(item[amountKey]))
       
       if (transaction === undefined) throw new Error('Could not find transaction name')
       if (item[amountKey] === undefined) throw new Error('Could not find amount')

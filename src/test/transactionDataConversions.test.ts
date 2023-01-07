@@ -26,8 +26,8 @@ describe('transactions to pie data conversion', () => {
     )
 
     const expected = [
-      {id: 'Vehicle', label: 'Vehicle', value: -120},
-      {id: 'Food & Drink', label: 'Food & Drink', value: -100},
+      {id: 'Vehicle', label: 'Vehicle', value: 120},
+      {id: 'Food & Drink', label: 'Food & Drink', value: 100},
     ]
     
     expect(actual).toEqual(expected)
