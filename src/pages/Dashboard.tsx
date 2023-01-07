@@ -3,6 +3,7 @@ import { Container } from "@mui/system"
 import TransactionButtons from "../components/TransactionButtons"
 import TransactionList from "../components/TransactionsList"
 import FiltersModal from "../components/FiltersModal"
+import PieChart from "../components/PieChart"
 
 function Dashboard() {
 
@@ -24,7 +25,7 @@ function Dashboard() {
           </Typography>
           <Container component='div' sx={graphContainerStyle}>
             <Box sx={subSectionStyle}>
-              Box
+              <PieChart />
             </Box>
             <Box sx={subSectionStyle}>
               Box
