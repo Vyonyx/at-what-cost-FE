@@ -4,7 +4,7 @@ import TransactionButtons from "../components/TransactionButtons"
 import TransactionList from "../components/TransactionsList"
 import FiltersModal from "../components/FiltersModal"
 import PieChart from "../components/PieChart"
-import CostList from "../components/CostList"
+import CategorisedCostList from "../components/CategorisedCostList"
 
 function Dashboard() {
 
@@ -27,10 +27,8 @@ function Dashboard() {
           <Container component='div' sx={graphContainerStyle}>
             <Box sx={subSectionStyle}>
               <PieChart />
-              <CostList />
+              <CategorisedCostList />
             </Box>
-            {/* <Box sx={subSectionStyle}>
-            </Box> */}
           </Container>
         </Grid>
       </Grid>

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "../redux/store"
 import { transactionsToPieData } from "../utils/transactionDataConversions"
 
-function CostList() {
+function CategorisedCostList() {
   const transactions = useSelector((state:RootState) => state.transactions)
   const filters = useSelector((state:RootState) => state.filters.list)
 
@@ -70,4 +70,4 @@ function CostList() {
     </section>
   )
 }
-export default CostList
+export default CategorisedCostList
