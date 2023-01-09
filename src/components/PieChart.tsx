@@ -9,9 +9,13 @@ function PieChart() {
   const transactions = useSelector((state:RootState) => state.transactions)
   const filters = useSelector((state:RootState) => state.filters.list)
 
-  const data = transactionsToPieData('Code', 'Amount', transactions, filters)
-  if (data.length > 0) console.log(data)
-  
+  let data = transactionsToPieData('Code', 'Amount', transactions, filters)
+  if (typeof data !== 'string') {
+    data = data.map(item => {
+      return {...item, value: Math.abs(item.value)}
+    })
+  }
+    
   return (
     <>
       <Typography variant="h4" color='background.default'>
