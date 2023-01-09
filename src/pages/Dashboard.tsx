@@ -1,9 +1,10 @@
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Divider, Grid, Typography } from "@mui/material"
 import { Container } from "@mui/system"
 import TransactionButtons from "../components/TransactionButtons"
 import TransactionList from "../components/TransactionsList"
 import FiltersModal from "../components/FiltersModal"
 import PieChart from "../components/PieChart"
+import CostList from "../components/CostList"
 
 function Dashboard() {
 
@@ -24,12 +25,12 @@ function Dashboard() {
             Cost Breakdown
           </Typography>
           <Container component='div' sx={graphContainerStyle}>
-            <Box sx={{...subSectionStyle, height:0}}>
-              <PieChart />
-            </Box>
             <Box sx={subSectionStyle}>
-              Box
+              <PieChart />
+              <CostList />
             </Box>
+            {/* <Box sx={subSectionStyle}>
+            </Box> */}
           </Container>
         </Grid>
       </Grid>
