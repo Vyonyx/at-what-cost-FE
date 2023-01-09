@@ -29,7 +29,7 @@ function CategorisedCostList() {
   }
   
   return (
-    <section>
+    <Box mb={6}>
       <Typography variant='h6' gutterBottom={true} color='background.default' sx={{textDecoration:'underline'}}>
         Categorised:
       </Typography>
@@ -67,7 +67,7 @@ function CategorisedCostList() {
           ))}
         </List>
       </Box>
-    </section>
+    </Box>
   )
 }
 export default CategorisedCostList
