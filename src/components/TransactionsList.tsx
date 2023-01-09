@@ -10,14 +10,6 @@ function TransactionList() {
   const transactionKey = 'Code'
   const amountKey = 'Amount'
   
-  if (transactions.length === 0) {
-    return (
-      <Typography variant='h4' align="center" color='background.default'>
-        Please upload CSV
-      </Typography>
-    )
-  }
-  
   return (
     <List sx={{'li + li': {borderTop:'1px solid grey'}}}>
       {transactions.map((item, idx) => (

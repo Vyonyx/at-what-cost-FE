@@ -3,8 +3,23 @@ import { Container } from "@mui/system"
 import TransactionButtons from "../components/TransactionButtons"
 import TransactionList from "../components/TransactionsList"
 import FiltersModal from "../components/FiltersModal"
+import PieChart from "../components/PieChart"
+import CategorisedCostList from "../components/CategorisedCostList"
+import OverallCostList from "../components/OverallCostList"
+import { useSelector } from "react-redux"
+import { RootState } from "../redux/store"
 
 function Dashboard() {
+  const transactions = useSelector((state:RootState) => state.transactions)
+  const filters = useSelector((state:RootState) => state.filters.list)
+
+  // if (transactions.length === 0) {
+  //   return (
+  //     <Typography variant='h4' align="center" color='background.default'>
+  //       Please upload CSV
+  //     </Typography>
+  //   )
+  // }
 
   return (
     <>
@@ -14,7 +29,13 @@ function Dashboard() {
             Transactions
           </Typography>
           <Box sx={sectionStyle}>
-            <TransactionList />
+            {transactions.length === 0 ? (
+              <Typography variant='h5' align="center" color='background.default'>
+                1. Please upload CSV
+              </Typography>
+            ) : (
+              <TransactionList />
+            )}
           </Box>
           <TransactionButtons />
         </Grid>
@@ -24,10 +45,17 @@ function Dashboard() {
           </Typography>
           <Container component='div' sx={graphContainerStyle}>
             <Box sx={subSectionStyle}>
-              Box
-            </Box>
-            <Box sx={subSectionStyle}>
-              Box
+              {(transactions.length > 0 && filters.length === 0) ? (
+                <Typography variant="h5" align='center' color='background.default'>
+                  2. Please add a filter
+                </Typography>
+              ) : (
+                <>
+                  <PieChart />
+                  <CategorisedCostList />
+                  <OverallCostList />
+                </>
+              )}
             </Box>
           </Container>
         </Grid>
