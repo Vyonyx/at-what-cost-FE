@@ -5,6 +5,7 @@ import TransactionList from "../components/TransactionsList"
 import FiltersModal from "../components/FiltersModal"
 import PieChart from "../components/PieChart"
 import CategorisedCostList from "../components/CategorisedCostList"
+import OverallCostList from "../components/OverallCostList"
 
 function Dashboard() {
 
@@ -28,6 +29,7 @@ function Dashboard() {
             <Box sx={subSectionStyle}>
               <PieChart />
               <CategorisedCostList />
+              <OverallCostList />
             </Box>
           </Container>
         </Grid>
