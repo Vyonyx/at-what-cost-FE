@@ -8,65 +8,66 @@ function CostList() {
   const filters = useSelector((state:RootState) => state.filters.list)
 
   const data = transactionsToPieData('Code', 'Amount', transactions, filters)
-  console.log(data)
 
-  const totals = 
-    typeof data !== 'string' 
-      ? data.reduce((prev, item) => {
-        const { id, value } = item
-        return value <= 0
-          ? {...prev, expenses: prev.expenses + value}
-          : {...prev, income: prev.income + value}
-      }, {expenses: 0, income: 0})
-      : {expenses: 0, income: 0}
+  const orderedExpenses = typeof data !== 'string'
+    ? data
+      .filter(item => item.value < 0)
+      .sort((a, b) => a.value - b.value)
+    : []
 
-      const {expenses: expensesTotal, income: incomeTotal} = totals
+  const orderedIncome = typeof data !== 'string'
+    ? data
+      .filter(item => item.value > 0)
+      .sort((a, b) => a.value + b.value)
+    : []
+
+  const expensesTotal = orderedExpenses.reduce((prev, item) => prev + item.value, 0)
+  const incomeTotal = orderedIncome.reduce((prev, item) => prev + item.value, 0)
+
+  if (typeof data === 'string' || data.length === 0) {
+    return <></>
+  }
   
   return (
-    <Box sx={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gridAutoRows:'min-content', width:'100%', height:'100%', color:'background.default'}}>
-      <Typography
-        variant='h6'
-        color='background.default'
-      >
-        Expenses: ${Math.abs(expensesTotal)}
+    <section>
+      <Typography variant='h6' gutterBottom={true} color='background.default' sx={{textDecoration:'underline'}}>
+        Categorised:
       </Typography>
-      <Typography
-        variant='h6'
-        color='background.default'
-      >
-        Income: ${incomeTotal}
-      </Typography>
-
-      <List dense>
-        <ListItem>
-          <Box sx={{display:'flex'}}>
-            <Typography mr={2} align='right' variant='body2'>$20.35</Typography>
-            <Typography align='left' variant='body2'>Category 1.</Typography>
-          </Box>
-        </ListItem>
-        <ListItem>
-          <Box sx={{display:'flex'}}>
-            <Typography mr={2} align='right' variant='body2'>$40.00</Typography>
-            <Typography align='left' variant='body2'>Category 2.</Typography>
-          </Box>
-        </ListItem>
-        <ListItem>
-          <Box sx={{display:'flex'}}>
-            <Typography mr={2} align='right' variant='body2'>$15.30</Typography>
-            <Typography align='left' variant='body2'>Category 3.</Typography>
-          </Box>
-        </ListItem>
-      </List>
-
-      <List dense>
-        <ListItem>
-          <Box sx={{display:'flex'}}>
-            <Typography mr={2} align='right' variant='body2'>$20</Typography>
-            <Typography align='left' variant='body2'>Category 1.</Typography>
-          </Box>
-        </ListItem>
-      </List>
-    </Box>
+      <Box sx={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gridAutoRows:'min-content', color:'background.default'}}>
+        <Typography
+          variant='h6'
+          color='background.default'
+        >
+          Expenses: ${Math.abs(expensesTotal)}
+        </Typography>
+        <Typography
+          variant='h6'
+          color='background.default'
+        >
+          Income: ${incomeTotal}
+        </Typography>
+        <List dense>
+          {orderedExpenses.map(({id, value}) => (
+            <ListItem key={id}>
+              <Box sx={{display:'flex'}}>
+                <Typography mr={2} align='right' variant='body2'>${Math.abs(value)}</Typography>
+                <Typography align='left' variant='body2'>{id}</Typography>
+              </Box>
+            </ListItem>
+          ))}
+        </List>
+        <List dense>
+        {orderedIncome.map(({id, value}) => (
+            <ListItem key={id}>
+              <Box sx={{display:'flex'}}>
+                <Typography mr={2} align='right' variant='body2'>${Math.abs(value)}</Typography>
+                <Typography align='left' variant='body2'>{id}</Typography>
+              </Box>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </section>
   )
 }
 export default CostList
