@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "start": "npx http-server ./dist",
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage"
