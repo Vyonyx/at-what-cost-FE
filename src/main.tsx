@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import { store } from './redux/store'
 import App from './App'
+import { Auth0Provider } from '@auth0/auth0-react'
 
 const theme = createTheme({
   palette: {
@@ -18,14 +19,23 @@ const theme = createTheme({
   }
 })
 
+const AUTH_DOMAIN = import.meta.env.VITE_AUTH_DOMAIN as string
+const AUTH_CLIENT_ID = import.meta.env.VITE_AUTH_CLIENT_ID as string
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </CssBaseline>
-    </ThemeProvider>
+    <Auth0Provider
+      domain={AUTH_DOMAIN}
+      clientId={AUTH_CLIENT_ID}
+      redirectUri='http://localhost:5173/'
+    >
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </CssBaseline>
+      </ThemeProvider>
+    </Auth0Provider>
   </React.StrictMode>,
 )
