@@ -8,18 +8,11 @@ import CategorisedCostList from "../components/CategorisedCostList"
 import OverallCostList from "../components/OverallCostList"
 import { useSelector } from "react-redux"
 import { RootState } from "../redux/store"
+import { useAuth0 } from '@auth0/auth0-react'
 
 function Dashboard() {
   const transactions = useSelector((state:RootState) => state.transactions)
   const filters = useSelector((state:RootState) => state.filters.list)
-
-  // if (transactions.length === 0) {
-  //   return (
-  //     <Typography variant='h4' align="center" color='background.default'>
-  //       Please upload CSV
-  //     </Typography>
-  //   )
-  // }
 
   return (
     <>
