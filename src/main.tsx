@@ -27,7 +27,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Auth0Provider
       domain={AUTH_DOMAIN}
       clientId={AUTH_CLIENT_ID}
-      redirectUri='http://localhost:5173/'
+      redirectUri={window.location.origin}
     >
       <ThemeProvider theme={theme}>
         <CssBaseline>
