@@ -1,9 +1,12 @@
-import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material"
+import { AppBar, IconButton, Toolbar, Typography } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu'
 import { useAuth0 } from '@auth0/auth0-react'
+import LogoutButton from "./LogoutButton"
+import SignUpButton from "./SignUpButton"
+import SignInButton from "./SignInButton"
 
 function Nav() {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0()
+  const { isAuthenticated, user } = useAuth0()
   
   return (
     <AppBar position="static">
@@ -15,22 +18,13 @@ function Nav() {
         {isAuthenticated ? (
           <>
             <Typography mr={4}>{user?.name}</Typography>
-            <Button
-              variant="contained"
-              sx={{backgroundColor:'primary.main'}}
-              onClick={() => logout()}
-            >
-              Logout
-            </Button>
+            <LogoutButton />
           </>
         ) : (
-          <Button
-            variant="contained"
-            sx={{backgroundColor:'primary.main'}}
-            onClick={() => loginWithRedirect()}
-          >
-            Login
-          </Button>
+          <>
+            <SignUpButton />
+            <SignInButton />
+          </>
         )}
       </Toolbar>
     </AppBar>

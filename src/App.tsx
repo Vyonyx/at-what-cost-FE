@@ -9,9 +9,9 @@ function App() {
     <div className="App">
       <Layout>
         <Routes>
-          <Route path='/' element={ <Dashboard /> } />
+          <Route path='/' element={ <Instructions /> } />
+          <Route path='/tool' element={ <Dashboard /> } />
           <Route path='/callback' element={ <Callback /> } />
-          <Route path='/instructions' element={ <Instructions /> } />
         </Routes>
       </Layout>
     </div>
