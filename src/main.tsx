@@ -5,6 +5,8 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import { store } from './redux/store'
 import App from './App'
 import { Auth0Provider } from '@auth0/auth0-react'
+import { BrowserRouter } from 'react-router-dom'
+import Auth0ProviderWithNavigate from './components/Auth0ProviderWithNavigate'
 
 const theme = createTheme({
   palette: {
@@ -32,7 +34,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <ThemeProvider theme={theme}>
         <CssBaseline>
           <Provider store={store}>
-            <App />
+            <BrowserRouter>
+              <Auth0ProviderWithNavigate>
+                <App />
+              </Auth0ProviderWithNavigate>
+            </BrowserRouter>
           </Provider>
         </CssBaseline>
       </ThemeProvider>
