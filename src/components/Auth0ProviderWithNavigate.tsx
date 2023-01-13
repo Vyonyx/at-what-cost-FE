@@ -21,7 +21,7 @@ function Auth0ProviderWithNavigate({children}: Props) {
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={redirectUri}
+      redirectUri={`${window.location.origin}/callback`}
       onRedirectCallback={(appState) => {
         navigate(appState?.returnTo || window.location.pathname)
       }}
