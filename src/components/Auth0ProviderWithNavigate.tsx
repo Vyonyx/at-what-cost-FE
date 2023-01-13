@@ -22,7 +22,7 @@ function Auth0ProviderWithNavigate({children}: Props) {
       clientId={clientId}
       redirectUri={`${window.location.origin}/callback`}
       onRedirectCallback={(appState) => {
-        navigate(appState?.returnTo || window.location.pathname)
+        navigate(appState?.returnTo || '/')
       }}
     >
       {children}
