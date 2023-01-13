@@ -26,16 +26,16 @@ const AUTH_CLIENT_ID = import.meta.env.VITE_AUTH_CLIENT_ID as string
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <CssBaseline>
-          <Provider store={store}>
-            <BrowserRouter>
-              <Auth0ProviderWithNavigate>
-                <App />
-              </Auth0ProviderWithNavigate>
-            </BrowserRouter>
-          </Provider>
-        </CssBaseline>
-      </ThemeProvider>
+    <BrowserRouter>
+      <Auth0ProviderWithNavigate>
+        <ThemeProvider theme={theme}>
+          <CssBaseline>
+            <Provider store={store}>
+              <App />
+            </Provider>
+          </CssBaseline>
+        </ThemeProvider>
+      </Auth0ProviderWithNavigate>
+    </BrowserRouter>
   </React.StrictMode>,
 )
