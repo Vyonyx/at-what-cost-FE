@@ -8,7 +8,7 @@ function SignUpButton() {
     <Button
       variant="contained"
       sx={{backgroundColor:'primary.main'}}
-      onClick={() => loginWithRedirect({
+      onClick={async () => await loginWithRedirect({
         screen_hint: 'signup',
         appState: {
           returnTo: '/tool'

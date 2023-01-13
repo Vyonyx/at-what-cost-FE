@@ -8,7 +8,7 @@ function SignInButton() {
     <Button
       variant="contained"
       sx={{backgroundColor:'primary.main', marginLeft:'1rem'}}
-      onClick={() => loginWithRedirect({
+      onClick={ async () => await loginWithRedirect({
         appState: {
           returnTo: '/tool'
         }
