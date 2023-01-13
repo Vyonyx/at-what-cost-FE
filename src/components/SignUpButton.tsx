@@ -11,7 +11,7 @@ function SignUpButton() {
       onClick={async () => await loginWithRedirect({
         screen_hint: 'signup',
         appState: {
-          returnTo: '/tool'
+          returnTo: '/'
         }
       })}
     >

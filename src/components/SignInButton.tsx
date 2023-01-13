@@ -10,7 +10,7 @@ function SignInButton() {
       sx={{backgroundColor:'primary.main', marginLeft:'1rem'}}
       onClick={ async () => await loginWithRedirect({
         appState: {
-          returnTo: '/tool'
+          returnTo: '/'
         }
       })}
     >
