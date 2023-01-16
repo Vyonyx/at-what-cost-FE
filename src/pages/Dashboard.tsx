@@ -1,29 +1,48 @@
-import { Box, Grid, Typography } from "@mui/material"
-import { Container } from "@mui/system"
-import TransactionButtons from "../components/TransactionButtons"
-import TransactionList from "../components/TransactionsList"
-import FiltersModal from "../components/FiltersModal"
-import PieChart from "../components/PieChart"
-import CategorisedCostList from "../components/CategorisedCostList"
-import OverallCostList from "../components/OverallCostList"
-import { useSelector } from "react-redux"
-import { RootState } from "../redux/store"
-import { useAuth0 } from '@auth0/auth0-react'
+import { Box, Grid, Typography } from "@mui/material";
+import { Container } from "@mui/system";
+import TransactionButtons from "../components/TransactionButtons";
+import TransactionList from "../components/TransactionsList";
+import FiltersModal from "../components/FiltersModal";
+import PieChart from "../components/PieChart";
+import CategorisedCostList from "../components/CategorisedCostList";
+import OverallCostList from "../components/OverallCostList";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useGetFiltersQuery } from "../redux/api/apiSlice";
 
 function Dashboard() {
-  const transactions = useSelector((state:RootState) => state.transactions)
-  const filters = useSelector((state:RootState) => state.filters.list)
+  const transactions = useSelector((state: RootState) => state.transactions);
+  const { data: filters } = useGetFiltersQuery(1);
 
   return (
     <>
-      <Grid container columnSpacing={6} sx={{height:'100%', paddingBottom:6, background:'primary.main'}}>
-        <Grid item xs={12} md={6} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'1rem'}}>
+      <Grid
+        container
+        columnSpacing={6}
+        sx={{ height: "100%", paddingBottom: 6, background: "primary.main" }}
+      >
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1rem",
+          }}
+        >
           <Typography variant="h6" mt={6}>
             Transactions
           </Typography>
           <Box sx={sectionStyle}>
             {transactions.length === 0 ? (
-              <Typography variant='h5' align="center" color='background.default'>
+              <Typography
+                variant="h5"
+                align="center"
+                color="background.default"
+              >
                 1. Please upload CSV
               </Typography>
             ) : (
@@ -32,14 +51,27 @@ function Dashboard() {
           </Box>
           <TransactionButtons />
         </Grid>
-        <Grid item xs={12} md={6} sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-        <Typography variant="h6" mt={6} mb={2}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h6" mt={6} mb={2}>
             Cost Breakdown
           </Typography>
-          <Container component='div' sx={graphContainerStyle}>
+          <Container component="div" sx={graphContainerStyle}>
             <Box sx={subSectionStyle}>
-              {(transactions.length > 0 && filters.length === 0) ? (
-                <Typography variant="h5" align='center' color='background.default'>
+              {transactions.length > 0 && filters?.length === 0 ? (
+                <Typography
+                  variant="h5"
+                  align="center"
+                  color="background.default"
+                >
                   2. Please add a filter
                 </Typography>
               ) : (
@@ -56,31 +88,31 @@ function Dashboard() {
 
       <FiltersModal />
     </>
-  )
+  );
 }
-export default Dashboard
+export default Dashboard;
 
 const graphContainerStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap:'1rem',
-  height: '100%'
-}
+  display: "flex",
+  flexDirection: "column",
+  gap: "1rem",
+  height: "100%",
+};
 
 const subSectionStyle = {
   flexGrow: 1,
-  width: '100%',
-  borderRadius: '1rem',
-  padding: '2rem',
-  background: '#F2F2F2'
-}
+  width: "100%",
+  borderRadius: "1rem",
+  padding: "2rem",
+  background: "#F2F2F2",
+};
 
 const sectionStyle = {
-  height: '100%',
-  maxHeight: '800px',
-  overflowY: 'scroll',
-  width: '100%',
-  borderRadius: '1rem',
-  padding: '2rem',
-  background: '#F2F2F2',
-}
+  height: "100%",
+  maxHeight: "800px",
+  overflowY: "scroll",
+  width: "100%",
+  borderRadius: "1rem",
+  padding: "2rem",
+  background: "#F2F2F2",
+};
