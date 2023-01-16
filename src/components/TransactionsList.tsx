@@ -12,7 +12,6 @@ function TransactionList() {
     isLoading,
     isSuccess,
     isError,
-    error,
   } = useGetFiltersQuery(1);
 
   let content: any = (
@@ -34,7 +33,6 @@ function TransactionList() {
 
   return (
     <>
-      {content}
       <List sx={{ "li + li": { borderTop: "1px solid grey" } }}>
         {transactions.map((item, idx) => (
           <TransactionListItem
