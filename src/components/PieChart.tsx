@@ -10,6 +10,7 @@ import { transactionsToPieData } from "../utils/transactionDataConversions";
 function PieChart() {
   const transactions = useSelector((state: RootState) => state.transactions);
   const { data: filters } = useGetFiltersQuery(1);
+  if (!filters) return null;
 
   let data = transactionsToPieData("Code", "Amount", transactions, filters!);
   if (typeof data !== "string") {
@@ -17,10 +18,6 @@ function PieChart() {
       return { ...item, value: Math.abs(item.value) };
     });
   }
-
-  useEffect(() => {
-    console.log("filters updated");
-  }, [filters]);
 
   return (
     <>
