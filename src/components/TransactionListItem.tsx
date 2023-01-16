@@ -11,19 +11,12 @@ type Props = {
   amount?: string;
 };
 function TransactionListItem({ transaction, amount = "3.50" }: Props) {
-  // const category = useSelector((state: RootState) =>
-  //   state.filters.list.find((filter) => filter.transaction === transaction)
-  // )?.category;
   const showFilters = useSelector(
     (state: RootState) => state.filters.isToggled
   );
 
-  const {
-    data: filters,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useGetFiltersQuery(1);
+  // TODO: Replace hardcoded user id with info from JWT token
+  const { data: filters } = useGetFiltersQuery(1);
 
   const category =
     filters?.find((item) => item.transaction === transaction)?.category || "";

@@ -14,19 +14,6 @@ function TransactionList() {
     isError,
   } = useGetFiltersQuery(1);
 
-  let content: any = (
-    <Typography variant="h1" color="black">
-      Content
-    </Typography>
-  );
-  if (isLoading) {
-    content = <Typography variant="h4">Loading...</Typography>;
-  } else if (isError) {
-    content = <Typography variant="body2">Error</Typography>;
-  } else {
-    content = JSON.stringify(filters);
-  }
-
   // Keys should dynamically change to reflect different bank state headers
   const transactionKey = "Code";
   const amountKey = "Amount";
