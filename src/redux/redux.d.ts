@@ -1,6 +1,6 @@
 type Filter = {
   transaction: string;
   category: string;
-  id: number;
+  id: number | null;
   userId: number;
 };

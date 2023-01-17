@@ -25,7 +25,22 @@ export const apiSlice = createApi({
       },
       invalidatesTags: [{ type: "Filters", id: "LIST" }],
     }),
+    editFilter: builder.mutation<Filter, Filter>({
+      query: (args) => {
+        const { userId, id: filterId, transaction, category } = args;
+        return {
+          url: `/filters/${userId}/${filterId}`,
+          method: "PATCH",
+          body: { transaction, category },
+        };
+      },
+      invalidatesTags: [{ type: "Filters", id: "LIST" }],
+    }),
   }),
 });
 
-export const { useGetFiltersQuery, useAddFilterMutation } = apiSlice;
+export const {
+  useGetFiltersQuery,
+  useAddFilterMutation,
+  useEditFilterMutation,
+} = apiSlice;

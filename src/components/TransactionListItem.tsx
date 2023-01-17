@@ -17,8 +17,10 @@ function TransactionListItem({ transaction, amount = "3.50" }: Props) {
 
   const { data: filters } = useGetFiltersQuery({ id: 1 });
 
-  const category =
-    filters?.find((item) => item.transaction === transaction)?.category || "";
+  const filter = filters?.find((item) => item.transaction === transaction);
+  const category = filter?.category || "";
+  const userId = filter?.userId || null;
+  const filterId = filter?.id || null;
 
   const dispatch = useDispatch();
 
@@ -56,7 +58,7 @@ function TransactionListItem({ transaction, amount = "3.50" }: Props) {
                 label="edit"
                 color="#F69400"
                 func={() => {
-                  dispatch(toggleIsEdit(transaction));
+                  dispatch(toggleIsEdit({ transaction, id: filterId }));
                 }}
               />
               <FilterButton

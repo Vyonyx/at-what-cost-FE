@@ -21,7 +21,10 @@ import { RootState } from "../redux/store";
 import selectCategories from "../data/selectCategories";
 import CloseIcon from "@mui/icons-material/Close";
 import { add, edit } from "../redux/filters";
-import { useAddFilterMutation } from "../redux/api/apiSlice";
+import {
+  useAddFilterMutation,
+  useEditFilterMutation,
+} from "../redux/api/apiSlice";
 
 const initialCategory = {
   selectCategory: "",
@@ -36,7 +39,10 @@ function FiltersModal() {
   const selectedTransaction = useSelector(
     (state: RootState) => state.modal.transaction
   );
+  const filterId = useSelector((state: RootState) => state.modal.filterId);
+
   const [addFilter] = useAddFilterMutation();
+  const [editFilter] = useEditFilterMutation();
 
   const [category, setCategory] = useState(initialCategory);
 
@@ -58,10 +64,15 @@ function FiltersModal() {
       transaction: selectedTransaction,
       category: selected ? selected : custom,
       userId: import.meta.env.VITE_USER_ID,
+      id: filterId || null,
     };
 
     // Add filter
-    const newFilter = await addFilter(filter).unwrap();
+    if (isAddModal) {
+      const newFilter = await addFilter(filter).unwrap();
+    } else if (isEditModal) {
+      const updatedFilter = await editFilter(filter).unwrap();
+    }
 
     // Reset
     setCategory(initialCategory);
