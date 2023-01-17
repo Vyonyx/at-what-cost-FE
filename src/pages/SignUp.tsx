@@ -1,13 +1,28 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React, { useState } from "react";
+import { z } from "zod";
+
+const userInfoSchema = z.object({
+  user_name: z
+    .string()
+    .min(5, { message: "User name cannot be less than 5 characters long" }),
+
+  user_email: z.string().email("Invalid email address"),
+
+  user_password: z
+    .string()
+    .length(6, { message: "Password must be at least 6 characters long" }),
+});
+
+const initialUserInfoState: z.infer<typeof userInfoSchema> = {
+  user_name: "",
+  user_email: "",
+  user_password: "",
+};
 
 function SignUp() {
-  const [userInfo, setUserInfo] = useState({
-    user_name: "",
-    user_email: "",
-    user_password: "",
-  });
+  const [userInfo, setUserInfo] = useState(initialUserInfoState);
 
   const handleChange = (e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
@@ -18,7 +33,12 @@ function SignUp() {
   };
 
   const handleSubmit = () => {
-    console.log(userInfo);
+    try {
+      userInfoSchema.parse(userInfo);
+      setUserInfo(initialUserInfoState);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
