@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Alert, Button, TextField, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React, { useState } from "react";
 import { z } from "zod";
@@ -21,8 +21,22 @@ const initialUserInfoState: z.infer<typeof userInfoSchema> = {
   user_password: "",
 };
 
+const userInfoErrorSchema = z.object({
+  name_alert: z.string(),
+  email_alert: z.string(),
+  password_alert: z.string(),
+});
+
+const initialUserInfoErrorState: z.infer<typeof userInfoErrorSchema> = {
+  name_alert: "",
+  email_alert: "",
+  password_alert: "",
+};
+
 function SignUp() {
   const [userInfo, setUserInfo] = useState(initialUserInfoState);
+  const [infoErrors, setInfoErrors] = useState(initialUserInfoErrorState);
+  const { name_alert, email_alert, password_alert } = infoErrors;
 
   const handleChange = (e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
@@ -30,12 +44,25 @@ function SignUp() {
     setUserInfo((prevState) => {
       return { ...prevState, [id]: value };
     });
+    setInfoErrors(initialUserInfoErrorState);
   };
 
   const handleSubmit = () => {
     try {
-      userInfoSchema.parse(userInfo);
-      setUserInfo(initialUserInfoState);
+      const result = userInfoSchema.safeParse(userInfo);
+      if (result.success) {
+        setUserInfo(initialUserInfoState);
+      } else {
+        const { user_name, user_email, user_password } = result.error.format();
+        setInfoErrors((prevState) => {
+          return {
+            ...prevState,
+            name_alert: user_name?._errors.join(", ") || "",
+            email_alert: user_email?._errors.join(", ") || "",
+            password_alert: user_password?._errors.join(", ") || "",
+          };
+        });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +73,8 @@ function SignUp() {
       <Container
         maxWidth="sm"
         sx={{
-          marginTop: "6rem",
+          marginTop: "3rem",
+          marginBottom: "3rem",
           color: "primary.main",
           padding: "2rem",
           border: "1px solid white",
@@ -70,6 +98,11 @@ function SignUp() {
             marginTop: "4rem",
           }}
         >
+          {name_alert && (
+            <Alert severity="error" sx={{ color: "white" }}>
+              {name_alert}
+            </Alert>
+          )}
           <TextField
             variant="outlined"
             label="Name"
@@ -80,6 +113,12 @@ function SignUp() {
             color="primary"
             onChange={handleChange}
           />
+
+          {email_alert && (
+            <Alert severity="error" sx={{ color: "white" }}>
+              {email_alert}
+            </Alert>
+          )}
           <TextField
             variant="outlined"
             label="Email"
@@ -90,6 +129,12 @@ function SignUp() {
             color="primary"
             onChange={handleChange}
           />
+
+          {password_alert && (
+            <Alert severity="error" sx={{ color: "white" }}>
+              {password_alert}
+            </Alert>
+          )}
           <TextField
             variant="outlined"
             label="Password"
