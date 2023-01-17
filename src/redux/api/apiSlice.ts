@@ -9,7 +9,17 @@ export const apiSlice = createApi({
       query: (id) => `/filters/` + id,
       providesTags: [{ type: "Filters", id: "LIST" }],
     }),
+    addFilter: builder.mutation<Filter, { id: string; filter: Filter }>({
+      query: (args) => {
+        const { id, filter } = args;
+        return {
+          url: "/filters/" + id,
+          method: "POST",
+          body: filter,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetFiltersQuery } = apiSlice;
+export const { useGetFiltersQuery, useAddFilterMutation } = apiSlice;
