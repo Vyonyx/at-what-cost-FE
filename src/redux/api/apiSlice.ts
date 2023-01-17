@@ -28,10 +28,21 @@ export const apiSlice = createApi({
     editFilter: builder.mutation<Filter, Filter>({
       query: (args) => {
         const { userId, id: filterId, transaction, category } = args;
+        console.log(filterId);
         return {
           url: `/filters/${userId}/${filterId}`,
           method: "PATCH",
           body: { transaction, category },
+        };
+      },
+      invalidatesTags: [{ type: "Filters", id: "LIST" }],
+    }),
+    deleteFilter: builder.mutation<void, Filter>({
+      query: (args) => {
+        const { userId, id: filterId } = args;
+        return {
+          url: `/filters/${userId}/${filterId}`,
+          method: "DELETE",
         };
       },
       invalidatesTags: [{ type: "Filters", id: "LIST" }],
@@ -43,4 +54,5 @@ export const {
   useGetFiltersQuery,
   useAddFilterMutation,
   useEditFilterMutation,
+  useDeleteFilterMutation,
 } = apiSlice;
