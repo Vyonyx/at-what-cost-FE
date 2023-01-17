@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { del } from "../redux/filters";
 import { toggleIsAdd, toggleIsEdit } from "../redux/modal";
+import { useGetFiltersQuery } from "../redux/api/apiSlice";
 
 type Props = {
   transaction: string;
@@ -14,7 +15,7 @@ function TransactionListItem({ transaction, amount = "3.50" }: Props) {
     (state: RootState) => state.filters.isToggled
   );
 
-  const filters = useSelector((state: RootState) => state.filters.list);
+  const { data: filters } = useGetFiltersQuery({ id: 1 });
 
   const category =
     filters?.find((item) => item.transaction === transaction)?.category || "";
@@ -63,7 +64,7 @@ function TransactionListItem({ transaction, amount = "3.50" }: Props) {
                 label="delete"
                 color="#FF1A1A"
                 func={() => {
-                  dispatch(del({ transaction, category }));
+                  // dispatch(del({ transaction, category }));
                 }}
               />
             </>

@@ -2,12 +2,13 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { ResponsivePie } from "@nivo/pie";
 import { useSelector } from "react-redux";
+import { useGetFiltersQuery } from "../redux/api/apiSlice";
 import { RootState } from "../redux/store";
 import { transactionsToPieData } from "../utils/transactionDataConversions";
 
 function PieChart() {
   const transactions = useSelector((state: RootState) => state.transactions);
-  const filters = useSelector((state: RootState) => state.filters.list);
+  const { data: filters } = useGetFiltersQuery({ id: 1 });
 
   let data = transactionsToPieData("Code", "Amount", transactions, filters!);
   if (typeof data !== "string") {

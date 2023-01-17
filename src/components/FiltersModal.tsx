@@ -57,12 +57,11 @@ function FiltersModal() {
     const filter = {
       transaction: selectedTransaction,
       category: selected ? selected : custom,
+      userId: import.meta.env.VITE_USER_ID,
     };
 
     // Add filter
-    await addFilter({ filter, id: "1" });
-    if (isAddModal) dispatch(add(filter));
-    if (isEditModal) dispatch(edit(filter));
+    const newFilter = await addFilter(filter).unwrap();
 
     // Reset
     setCategory(initialCategory);

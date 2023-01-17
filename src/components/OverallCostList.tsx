@@ -1,10 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useGetFiltersQuery } from "../redux/api/apiSlice";
 import { RootState } from "../redux/store";
 
 function OverallCostList() {
   const transactions = useSelector((state: RootState) => state.transactions);
-  const filters = useSelector((state: RootState) => state.filters.list);
+  const { data: filters } = useGetFiltersQuery({ id: 1 });
 
   if (!filters) return null;
 
