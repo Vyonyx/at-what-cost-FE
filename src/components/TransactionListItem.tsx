@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { del } from "../redux/filters";
 import { toggleIsAdd, toggleIsEdit } from "../redux/modal";
-import { useGetFiltersQuery } from "../redux/api/apiSlice";
 
 type Props = {
   transaction: string;
@@ -15,8 +14,7 @@ function TransactionListItem({ transaction, amount = "3.50" }: Props) {
     (state: RootState) => state.filters.isToggled
   );
 
-  // TODO: Replace hardcoded user id with info from JWT token
-  const { data: filters } = useGetFiltersQuery(1);
+  const filters = useSelector((state: RootState) => state.filters.list);
 
   const category =
     filters?.find((item) => item.transaction === transaction)?.category || "";

@@ -1,12 +1,11 @@
 import { Box, Grid, List, ListItem, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useGetFiltersQuery } from "../redux/api/apiSlice";
 import { RootState } from "../redux/store";
 import { transactionsToPieData } from "../utils/transactionDataConversions";
 
 function CategorisedCostList() {
   const transactions = useSelector((state: RootState) => state.transactions);
-  const { data: filters } = useGetFiltersQuery(1);
+  const filters = useSelector((state: RootState) => state.filters.list);
 
   if (!filters) return <></>;
 

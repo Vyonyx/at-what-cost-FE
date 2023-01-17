@@ -9,11 +9,10 @@ import OverallCostList from "../components/OverallCostList";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useGetFiltersQuery } from "../redux/api/apiSlice";
 
 function Dashboard() {
   const transactions = useSelector((state: RootState) => state.transactions);
-  const { data: filters } = useGetFiltersQuery(1);
+  const filters = useSelector((state: RootState) => state.filters.list);
 
   return (
     <>

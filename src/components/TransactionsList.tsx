@@ -1,18 +1,22 @@
 import { List, ListItem, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import TransactionListItem from "./TransactionListItem";
 import { useGetFiltersQuery } from "../redux/api/apiSlice";
+import { useEffect } from "react";
+import { load } from "../redux/filters";
 
 function TransactionList() {
+  const dispatch = useDispatch();
   const transactions = useSelector((state: RootState) => state.transactions);
 
-  const {
-    data: filters,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useGetFiltersQuery(1);
+  const { data: dbFilters, isSuccess } = useGetFiltersQuery(1);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(load(dbFilters));
+    }
+  }, [dbFilters]);
 
   // Keys should dynamically change to reflect different bank state headers
   const transactionKey = "Code";
