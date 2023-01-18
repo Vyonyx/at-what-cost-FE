@@ -1,7 +1,11 @@
 import { Alert, Button, TextField, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loadUserDetails } from "../redux/user";
 import { z } from "zod";
+import { useAddUserMutation } from "../redux/api/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 const userInfoSchema = z.object({
   user_name: z
@@ -37,6 +41,9 @@ function SignUp() {
   const [userInfo, setUserInfo] = useState(initialUserInfoState);
   const [infoErrors, setInfoErrors] = useState(initialUserInfoErrorState);
   const { name_alert, email_alert, password_alert } = infoErrors;
+  const [addUser] = useAddUserMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
@@ -47,11 +54,34 @@ function SignUp() {
     setInfoErrors(initialUserInfoErrorState);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
       const result = userInfoSchema.safeParse(userInfo);
       if (result.success) {
-        setUserInfo(initialUserInfoState);
+        try {
+          // Send details to API
+          const token = await addUser({
+            name: userInfo.user_name,
+            email: userInfo.user_email,
+            password: userInfo.user_password,
+          }).unwrap();
+
+          // Store token in redux store
+          dispatch(
+            loadUserDetails({
+              name: userInfo.user_name,
+              email: userInfo.user_email,
+              token: token,
+            })
+          );
+          // Navigate to tools page
+          navigate("/tool");
+          setUserInfo(initialUserInfoState);
+        } catch (error) {
+          window.alert(
+            "Could not register new user. Try login if you've already signed up!"
+          );
+        }
       } else {
         const { user_name, user_email, user_password } = result.error.format();
         setInfoErrors((prevState) => {

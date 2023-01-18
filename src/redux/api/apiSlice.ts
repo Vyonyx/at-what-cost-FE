@@ -47,6 +47,18 @@ export const apiSlice = createApi({
       },
       invalidatesTags: [{ type: "Filters", id: "LIST" }],
     }),
+    addUser: builder.mutation<
+      string,
+      { name: string; email: string; password: string }
+    >({
+      query: (args) => {
+        return {
+          url: "/users",
+          method: "POST",
+          body: args,
+        };
+      },
+    }),
   }),
 });
 
@@ -55,4 +67,5 @@ export const {
   useAddFilterMutation,
   useEditFilterMutation,
   useDeleteFilterMutation,
+  useAddUserMutation,
 } = apiSlice;

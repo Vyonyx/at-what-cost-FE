@@ -9,7 +9,8 @@ function App() {
     <div className="App">
       <Layout>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Instructions />} />
+          <Route path="/tool" element={<Dashboard />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
       </Layout>
