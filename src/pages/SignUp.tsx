@@ -55,46 +55,34 @@ function SignUp() {
   };
 
   const handleSubmit = async () => {
-    try {
-      const result = userInfoSchema.safeParse(userInfo);
-      if (result.success) {
-        try {
-          // Send details to API
-          const token = await addUser({
-            name: userInfo.user_name,
-            email: userInfo.user_email,
-            password: userInfo.user_password,
-          }).unwrap();
+    const result = userInfoSchema.safeParse(userInfo);
+    if (!result.success) {
+      const { user_name, user_email, user_password } = result.error.format();
+      setInfoErrors((prevState) => {
+        return {
+          ...prevState,
+          name_alert: user_name?._errors.join(", ") || "",
+          email_alert: user_email?._errors.join(", ") || "",
+          password_alert: user_password?._errors.join(", ") || "",
+        };
+      });
+      return;
+    }
 
-          // Store token in redux store
-          dispatch(
-            loadUserDetails({
-              name: userInfo.user_name,
-              email: userInfo.user_email,
-              token: token,
-            })
-          );
-          // Navigate to tools page
-          navigate("/tool");
-          setUserInfo(initialUserInfoState);
-        } catch (error) {
-          window.alert(
-            "Could not register new user. Try login if you've already signed up!"
-          );
-        }
-      } else {
-        const { user_name, user_email, user_password } = result.error.format();
-        setInfoErrors((prevState) => {
-          return {
-            ...prevState,
-            name_alert: user_name?._errors.join(", ") || "",
-            email_alert: user_email?._errors.join(", ") || "",
-            password_alert: user_password?._errors.join(", ") || "",
-          };
-        });
-      }
-    } catch (error) {
-      console.error(error);
+    try {
+      const userDetailsAndToken = await addUser({
+        name: userInfo.user_name,
+        email: userInfo.user_email,
+        password: userInfo.user_password,
+      }).unwrap();
+
+      // Store token in redux store
+      dispatch(loadUserDetails(userDetailsAndToken));
+      // Navigate to tools page
+      navigate("/tool");
+      setUserInfo(initialUserInfoState);
+    } catch (error: any) {
+      window.alert(error.data);
     }
   };
 

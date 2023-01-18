@@ -64,15 +64,21 @@ function Login() {
       const emailAlert = emailErrors?._errors.join(", ") || "";
       const passwordAlert = passwordErrors?._errors.join(", ") || "";
       setInfoErrors({ emailAlert, passwordAlert });
+      return;
     }
 
-    // Submit user info to API
-    const userDetailsAndToken = await checkUserLogin(userInfo).unwrap();
-    if (!userDetailsAndToken) return;
-    dispatch(loadUserDetails(userDetailsAndToken));
+    try {
+      // Submit user info to API
+      const userDetailsAndToken = await checkUserLogin(userInfo).unwrap();
+      if (!userDetailsAndToken) return;
+      dispatch(loadUserDetails(userDetailsAndToken));
 
-    // Go to dashboard if authenticated
-    navigate("/tool");
+      // Go to dashboard if authenticated
+      navigate("/tool");
+      setUserInfo(initialUserInfo);
+    } catch (error: any) {
+      window.alert(error.data);
+    }
   };
 
   return (

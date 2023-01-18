@@ -11,7 +11,14 @@ const UserDetailsSchema = z.object({
   }),
 });
 
+const APIUserDataSchema = z.object({
+  name: string(),
+  email: string().email(),
+  token: string(),
+});
+
 type UserDetails = z.infer<typeof UserDetailsSchema>;
+type APIUserData = z.infer<typeof APIUserDataSchema>;
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -58,7 +65,7 @@ export const apiSlice = createApi({
       },
       invalidatesTags: [{ type: "Filters", id: "LIST" }],
     }),
-    addUser: builder.mutation<string, UserDetails>({
+    addUser: builder.mutation<APIUserData, UserDetails>({
       query: (args) => {
         return {
           url: "/users/signup",
@@ -67,10 +74,7 @@ export const apiSlice = createApi({
         };
       },
     }),
-    checkUser: builder.mutation<
-      { name: string; email: string; token: string },
-      UserDetails
-    >({
+    checkUser: builder.mutation<APIUserData, UserDetails>({
       query: (args) => {
         return {
           url: "/users/login",
