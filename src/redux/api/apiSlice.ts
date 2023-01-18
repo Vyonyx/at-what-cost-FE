@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { string, z } from "zod";
 
 const USER_ID = import.meta.env.VITE_USER_ID;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const UserDetailsSchema = z.object({
   name: string().optional(),
@@ -22,7 +23,7 @@ type APIUserData = z.infer<typeof APIUserDataSchema>;
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3010/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ["Filters"],
   endpoints: (builder) => ({
     getFilters: builder.query<Filter[], { id: number }>({
