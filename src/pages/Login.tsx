@@ -7,7 +7,11 @@ import {
   Button,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import { useCheckUserMutation } from "../redux/api/apiSlice";
+import { loadUserDetails } from "../redux/user";
 
 const UserInfoSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -38,6 +42,9 @@ const initialUserInfoErrorState: UserInfoError = {
 function Login() {
   const [userInfo, setUserInfo] = useState(initialUserInfo);
   const [infoErrors, setInfoErrors] = useState(initialUserInfoErrorState);
+  const [checkUserLogin] = useCheckUserMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
@@ -60,6 +67,12 @@ function Login() {
     }
 
     // Submit user info to API
+    const userDetailsAndToken = await checkUserLogin(userInfo).unwrap();
+    if (!userDetailsAndToken) return;
+    dispatch(loadUserDetails(userDetailsAndToken));
+
+    // Go to dashboard if authenticated
+    navigate("/tool");
   };
 
   return (
