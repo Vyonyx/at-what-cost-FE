@@ -1,21 +1,18 @@
-import { Button } from '@mui/material'
-import { useAuth0 } from '@auth0/auth0-react'
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function SignInButton() {
-  const { loginWithRedirect } = useAuth0()
-  
+  const navigate = useNavigate();
   return (
     <Button
       variant="contained"
-      sx={{backgroundColor:'primary.main', marginLeft:'1rem'}}
-      onClick={ async () => await loginWithRedirect({
-        appState: {
-          returnTo: '/'
-        }
-      })}
+      sx={{ backgroundColor: "primary.main", marginLeft: "1rem" }}
+      onClick={() => {
+        navigate("/login");
+      }}
     >
       Sign In
     </Button>
-  )
+  );
 }
-export default SignInButton
+export default SignInButton;

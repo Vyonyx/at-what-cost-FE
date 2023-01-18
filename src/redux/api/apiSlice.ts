@@ -1,6 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { string, z } from "zod";
 
 const USER_ID = import.meta.env.VITE_USER_ID;
+
+const UserDetailsSchema = z.object({
+  name: string().optional(),
+  email: string().email("Invalid email address"),
+  password: string().min(6, {
+    message: "Password must be at least 6 characters long",
+  }),
+});
+
+const APIUserDataSchema = z.object({
+  name: string(),
+  email: string().email(),
+  token: string(),
+});
+
+type UserDetails = z.infer<typeof UserDetailsSchema>;
+type APIUserData = z.infer<typeof APIUserDataSchema>;
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -47,6 +65,24 @@ export const apiSlice = createApi({
       },
       invalidatesTags: [{ type: "Filters", id: "LIST" }],
     }),
+    addUser: builder.mutation<APIUserData, UserDetails>({
+      query: (args) => {
+        return {
+          url: "/users/signup",
+          method: "POST",
+          body: args,
+        };
+      },
+    }),
+    checkUser: builder.mutation<APIUserData, UserDetails>({
+      query: (args) => {
+        return {
+          url: "/users/login",
+          method: "POST",
+          body: args,
+        };
+      },
+    }),
   }),
 });
 
@@ -55,4 +91,6 @@ export const {
   useAddFilterMutation,
   useEditFilterMutation,
   useDeleteFilterMutation,
+  useAddUserMutation,
+  useCheckUserMutation,
 } = apiSlice;

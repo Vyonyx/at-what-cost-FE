@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import filtersReducer from "./filters";
 import transactionsReducer from "./transactions";
 import modalReducer from "./modal";
+import userReducer from "./user";
 import { apiSlice } from "./api/apiSlice";
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     filters: filtersReducer,
     transactions: transactionsReducer,
     modal: modalReducer,
+    user: userReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
