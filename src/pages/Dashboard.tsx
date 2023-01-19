@@ -9,17 +9,17 @@ import OverallCostList from "../components/OverallCostList";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useGetFiltersQuery } from "../redux/api/apiSlice";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function Dashboard() {
   const transactions = useSelector((state: RootState) => state.transactions);
-  const { data: filters } = useGetFiltersQuery({ id: 1 });
   const user = useSelector((state: RootState) => state.user);
-  const navigate = useNavigate();
 
   if (!user.token) {
-    return navigate("/login");
+    return <Navigate to="/login" />;
   }
+
+  const { data: filters } = useGetFiltersQuery({ id: user.id });
 
   return (
     <>

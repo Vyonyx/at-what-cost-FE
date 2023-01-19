@@ -33,7 +33,12 @@ export const apiSlice = createApi({
     }),
     addFilter: builder.mutation<
       Filter,
-      { userId: string; transaction: string; category: string }
+      {
+        userId: number;
+        transaction: string;
+        category: string;
+        id: number | null;
+      }
     >({
       query: (args) => {
         const { userId } = args;

@@ -6,7 +6,8 @@ import { transactionsToPieData } from "../utils/transactionDataConversions";
 
 function CategorisedCostList() {
   const transactions = useSelector((state: RootState) => state.transactions);
-  const { data: filters } = useGetFiltersQuery({ id: 1 });
+  const user = useSelector((state: RootState) => state.user);
+  const { data: filters } = useGetFiltersQuery({ id: user.id });
 
   if (!filters) return <></>;
 

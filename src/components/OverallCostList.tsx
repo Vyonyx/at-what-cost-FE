@@ -5,7 +5,8 @@ import { RootState } from "../redux/store";
 
 function OverallCostList() {
   const transactions = useSelector((state: RootState) => state.transactions);
-  const { data: filters } = useGetFiltersQuery({ id: 1 });
+  const user = useSelector((state: RootState) => state.user);
+  const { data: filters } = useGetFiltersQuery({ id: user.id });
 
   if (!filters) return null;
 

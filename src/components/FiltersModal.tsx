@@ -39,6 +39,7 @@ function FiltersModal() {
   const selectedTransaction = useSelector(
     (state: RootState) => state.modal.transaction
   );
+  const user = useSelector((state: RootState) => state.user);
   const filterId = useSelector((state: RootState) => state.modal.filterId);
 
   const [addFilter] = useAddFilterMutation();
@@ -63,7 +64,7 @@ function FiltersModal() {
     const filter = {
       transaction: selectedTransaction,
       category: selected ? selected : custom,
-      userId: import.meta.env.VITE_USER_ID,
+      userId: user.id,
       id: filterId || null,
     };
 

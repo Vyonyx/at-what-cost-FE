@@ -4,7 +4,7 @@ import { z } from "zod";
 const UserSchema = z.object({
   token: z.string().default(""),
   name: z.string().default(""),
-  id: z.number().optional(),
+  id: z.number(),
   email: z.string().email().default(""),
 });
 
@@ -14,6 +14,7 @@ const initialState: User = {
   token: "",
   name: "",
   email: "",
+  id: 0,
 };
 
 const userSlice = createSlice({

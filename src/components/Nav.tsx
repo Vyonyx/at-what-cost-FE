@@ -58,13 +58,7 @@ function Nav() {
             }}
           >
             <MenuItem onClick={() => handleClose("/")}>Home</MenuItem>
-            {user.token && (
-              <>
-                <MenuItem onClick={() => handleClose("tool")}>
-                  Dashboard
-                </MenuItem>
-              </>
-            )}
+            <MenuItem onClick={() => handleClose("tool")}>Dashboard</MenuItem>
           </Menu>
         </>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
