@@ -61,6 +61,8 @@ function FiltersModal() {
 
   async function handleClose() {
     const { selectCategory: selected, customCategory: custom } = category;
+    if (!selected && !custom) return dispatch(resetModal());
+
     const filter = {
       transaction: selectedTransaction,
       category: selected ? selected : custom,
