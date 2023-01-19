@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { string, z } from "zod";
+import { number, string, z } from "zod";
 
 const USER_ID = import.meta.env.VITE_USER_ID;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -15,6 +15,7 @@ const UserDetailsSchema = z.object({
 const APIUserDataSchema = z.object({
   name: string(),
   email: string().email(),
+  id: number(),
   token: string(),
 });
 

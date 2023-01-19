@@ -4,6 +4,7 @@ import { z } from "zod";
 const UserSchema = z.object({
   token: z.string().default(""),
   name: z.string().default(""),
+  id: z.number().optional(),
   email: z.string().email().default(""),
 });
 
