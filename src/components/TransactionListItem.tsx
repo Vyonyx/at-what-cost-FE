@@ -17,7 +17,8 @@ function TransactionListItem({ transaction, amount = "3.50" }: Props) {
   const showFilters = useSelector(
     (state: RootState) => state.filters.isToggled
   );
-  const { data: filters } = useGetFiltersQuery({ id: 1 });
+  const user = useSelector((state: RootState) => state.user);
+  const { data: filters } = useGetFiltersQuery({ id: user.id });
   const [deleteFilter] = useDeleteFilterMutation();
 
   const filter = filters?.find((item) => item.transaction === transaction);

@@ -1,17 +1,25 @@
-import { Button } from "@mui/material"
-import { useAuth0 } from '@auth0/auth0-react'
+import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { removeUserDetails } from "../redux/user";
 
 function LogoutButton() {
-  const { logout } = useAuth0()
-  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(removeUserDetails());
+    navigate("/");
+  };
+
   return (
     <Button
       variant="contained"
-      sx={{backgroundColor:'primary.main'}}
-      onClick={() => logout({returnTo: window.location.origin})}
+      sx={{ backgroundColor: "primary.main" }}
+      onClick={handleLogout}
     >
       Logout
     </Button>
-  )
+  );
 }
-export default LogoutButton
+export default LogoutButton;

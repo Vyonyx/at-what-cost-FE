@@ -4,6 +4,7 @@ import { z } from "zod";
 const UserSchema = z.object({
   token: z.string().default(""),
   name: z.string().default(""),
+  id: z.number(),
   email: z.string().email().default(""),
 });
 
@@ -13,6 +14,7 @@ const initialState: User = {
   token: "",
   name: "",
   email: "",
+  id: 0,
 };
 
 const userSlice = createSlice({
@@ -27,8 +29,11 @@ const userSlice = createSlice({
         return state;
       }
     },
+    removeUserDetails: (state) => {
+      return initialState;
+    },
   },
 });
 
-export const { loadUserDetails } = userSlice.actions;
+export const { loadUserDetails, removeUserDetails } = userSlice.actions;
 export default userSlice.reducer;

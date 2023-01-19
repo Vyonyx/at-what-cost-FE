@@ -8,12 +8,18 @@ import CategorisedCostList from "../components/CategorisedCostList";
 import OverallCostList from "../components/OverallCostList";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useGetFiltersQuery } from "../redux/api/apiSlice";
+import { Navigate } from "react-router-dom";
 
 function Dashboard() {
   const transactions = useSelector((state: RootState) => state.transactions);
-  const { data: filters } = useGetFiltersQuery({ id: 1 });
+  const user = useSelector((state: RootState) => state.user);
+
+  if (!user.token) {
+    return <Navigate to="/login" />;
+  }
+
+  const { data: filters } = useGetFiltersQuery({ id: user.id });
 
   return (
     <>

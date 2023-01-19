@@ -10,7 +10,8 @@ function TransactionList() {
   const dispatch = useDispatch();
   const transactions = useSelector((state: RootState) => state.transactions);
 
-  const { data: dbFilters, isSuccess } = useGetFiltersQuery({ id: 1 });
+  const user = useSelector((state: RootState) => state.user);
+  const { data: filters } = useGetFiltersQuery({ id: user.id });
 
   // Keys should dynamically change to reflect different bank state headers
   const transactionKey = "Code";
